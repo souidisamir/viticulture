@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Gestion Agricole</title>
+</head>
+<body>
+    <header>
+        <h1>Gestion d'une viticulture</h1>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Exploitations</a>
+                    <ul class="dropdown-content">
+                        <li><a href="{{ url_for('exploitations') }}">Liste Exploitations</a></li>
+                        <li><a href="{{ url_for('add_exploitation') }}">Ajouter Exploitation</a></li>
+                    </ul>
+                </li>
+                {% if session.get('admin')=="admin" %} 
+             
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Chefs d'exploitation</a>
+                    <ul class="dropdown-content">
+                        <li><a href="{{ url_for('chefs_exploitation') }}">Liste Chefs d'exploitation</a></li>
+                        <li><a href="{{ url_for('add_chef_exploitation') }}">Ajouter Chef d'exploitation</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Salariés </a>
+                    <ul class="dropdown-content">
+                        <li><a href="{{ url_for('salaries') }}">Liste des salariés</a></li>
+                        <li><a href="{{ url_for('add_salarie') }}">Ajouter salarié</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Travaux agricoles </a>
+                    <ul class="dropdown-content">
+                        <li><a href="">Liste des Travaux agricoles</a></li>
+                        <li><a href="">Ajouter un Travail agricole</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">operations phytosanitaires </a>
+                    <ul class="dropdown-content">
+                        <li><a href="">Liste des operations phytosanitaires</a></li>
+                        <li><a href="">Ajouter une operation phytosanitaire</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">synthese annuelle </a>
+                    <ul class="dropdown-content">
+                        <li><a href="">Liste des synthese annuelle</a></li>
+                        <li><a href="">Ajouter synthese annuelle</a></li>
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Bonjour {{ session.get('admin') }} </a>
+                    <ul class="dropdown-content">
+                      
+                        <li><a href="{{ url_for('logout') }}">déconnexion</a></li>
+                    </ul>
+                </li>
+                <!-- Ajoutez d'autres liens ou dropdowns ici -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+        // JavaScript to handle the dropdown menu interaction
+        document.querySelectorAll('.dropbtn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Toggle the display of the dropdown content
+                this.nextElementSibling.classList.toggle('show');
+            });
+        });
+
+        // Close dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                document.querySelectorAll('.dropdown-content').forEach(content => {
+                    if (content.classList.contains('show')) {
+                        content.classList.remove('show');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
