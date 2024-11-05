@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <title>Gestion Agricole</title>
 </head>
 <body>
@@ -38,7 +40,7 @@
                 <li class="dropdown">
                     <a href="javascript:void(0)" class="dropbtn">Travaux agricoles </a>
                     <ul class="dropdown-content">
-                        <li><a href="">Liste des Travaux agricoles</a></li>
+                        <li><a href="{{ url_for('travaux') }}">Liste des Travaux agricoles</a></li>
                         <li><a href="">Ajouter un Travail agricole</a></li>
                     </ul>
                 </li>

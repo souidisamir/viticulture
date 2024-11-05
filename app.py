@@ -119,7 +119,7 @@ def edit_exploitation(id):
     return render_template('edit_exploitation.html', exploitation=exploitation)
 
 # Route pour supprimer une exploitation
-@app.route('/exploitations/delete/<int:id>')
+@app.route('/exploitations/delete/<int:id>', methods=('GET', 'POST'))
 def delete_exploitation(id):
     if 'user_id' not in session:
         return redirect(url_for('login'))
@@ -303,7 +303,16 @@ def delete_salarie(id):
     flash('Salarié supprimé avec succès.')
     return redirect(url_for('salaries'))
 
-
+# travaux agricole
+@app.route('/travaux')
+def travaux():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    conn = get_db_connection()
+    travaux = conn.execute('SELECT * FROM travaux_agricoles  join exploitations on exploitations.id_exploitation=travaux_agricoles.id_exploitation join salaries on salaries.id_salarie=travaux_agricoles.salarie_id ').fetchall()
+    conn.close()
+    
+    return render_template('travaux_agricoles.html', travaux=travaux)
 
 if __name__ == '__main__':
     app.run(debug=True)
