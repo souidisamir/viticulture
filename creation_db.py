@@ -49,11 +49,16 @@ def create_tables():
                     type_travail TEXT,
                     date_travail TEXT,
                     id_exploitation INTEGER,
+                    salarie_id INTEGER,
+                    operation_culturale TEXT,
+                    Duree FLOAT,
+                    id_operation_sanitaire INTEGER,
+                    FOREIGN KEY(id_operation_sanitaire) REFERENCES {table5}(id_operation_sanitaire),
                     FOREIGN KEY(id_exploitation) REFERENCES {table1}(id_exploitation)
                 )''')
 
     c.execute(f'''CREATE TABLE IF NOT EXISTS {table5} (
-                    id_operation INTEGER PRIMARY KEY,
+                    id_operation_sanitaire INTEGER PRIMARY KEY,
                     maladie_visee TEXT,
                     stade_maladie TEXT,
                     methodes_traitement TEXT,
@@ -65,7 +70,7 @@ def create_tables():
 
     c.execute(f'''CREATE TABLE IF NOT EXISTS {table6} (
                     id_synthese INTEGER PRIMARY KEY,
-                    année INTEGER,
+                    annee INTEGER,
                     production_totale REAL,
                     id_exploitation INTEGER,
                     FOREIGN KEY(id_exploitation) REFERENCES {table1}(id_exploitation)
@@ -75,7 +80,7 @@ def create_tables():
     login TEXT NOT NULL,
     password TEXT NOT NULL
                 ) ''')
-    
+    c.execute(f''' INSERT INTO authentification (login, password) VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3')''')
 
 
 
@@ -92,7 +97,7 @@ def to_csv():
         table = pd.read_sql_query(f"SELECT * from {table_name}", conn)
         table.to_csv(f"{table_name}.csv", index_label='index')
 
-to_csv()
+#to_csv()
 
 # Validation et fermeture de la connexion
 conn.commit()
