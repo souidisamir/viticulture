@@ -119,7 +119,7 @@ def edit_exploitation(id):
     return render_template('edit_exploitation.html', exploitation=exploitation)
 
 # Route pour supprimer une exploitation
-@app.route('/exploitations/delete/<int:id>')
+@app.route('/exploitations/delete/<int:id>', methods=('GET', 'POST'))
 def delete_exploitation(id):
     if 'user_id' not in session:
         return redirect(url_for('login'))
