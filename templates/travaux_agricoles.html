@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Liste des travaux agricoles</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+    <table>
+        <tr> 
+            
+
+
+
+
+
+            <th>ID</th>
+            <th>Type travail</th>
+            <th>Date travail</th>
+            <th>id_exploitation</th>
+            <th>salarie_id</th>
+            <th>Operation culturale</th>
+            <th>Duree</th>
+            <th>Actions</th>
+        </tr>
+        {% for travail in travaux %}
+        <tr>
+            
+
+
+
+
+
+            <td>{{ travail.id_travail }}</td>
+            <td>{{ travail.type_travail }}</td>
+            <td>{{ travail.date_travail }}</td>
+            <td>{{ travail.id_exploitation }}</td>
+            <td>{{ travail.salarie_id }}</td>
+            <td>{{ travail.operation_culturale }}</td>
+            <td>{{ travail.Duree }}</td>
+            <td>
+                <a href="{{ url_for('edit_travail', id=travail.id_travail) }}">Modifier</a>
+               
+                <form id="formallexploitation" action="{{ url_for('delete_travail', id=travail.id_travail) }}" method="POST" style="display:inline;">
+                    <button class="button"  type="submit" style="background-color:#ad0909a6">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
